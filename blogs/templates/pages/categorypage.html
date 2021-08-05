@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ category.name }} | Kateqoriyalar{% endblock %}
+
+{% block content %}
+
+{% for blog in blogs %}
+<div class="card mt-3" >
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="{{ blog.image.url }}" class="img-fluid rounded-start" alt="{{ blog.image.url }}">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <a href="{% url 'blogs:detailpage' blog.slug %}" style="text-decoration:none;"><h5 class="card-title">{{ blog.title }}</h5></a>
+          <small class="badge badge-info">
+            {% for category in blog.categories.all %}
+            {{ category }}
+            {% endfor %}
+          </small>
+          <p class="card-text">{{ blog.context|safe|truncatechars_html:100 }}</p>
+          <p class="card-text"><small class="text-muted">{{ blog.pub_date }} ({{ blog.views_time }} dəfə baxıldı)</small></p>
+        </div>
+      </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

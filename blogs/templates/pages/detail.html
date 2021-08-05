@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %} {{ blog.title }}{% endblock %}
+{% block content %}
+
+<div class="card mb-3 my-2">
+    <img src="{{ blog.image.url }}" class="card-img-top" alt="{{ blog.title }}">
+    <div class="card-body">
+      <h1 class="card-title" style="font-size:200%">{{ blog.title }}</h1>
+      <p class="card-text"><small class="text-muted">{{ blog.pub_date }} ({{ blog.views_time }} dəfə baxıldı)</small></p>
+      <small class="badge badge-info">
+        {% for category in blog.categories.all %}
+        {{ category }}
+        {% endfor %}
+      </small>
+      <p class="card-text">{{ blog.context|safe }}</p>
+    </div>
+</div>
+
+<div class="card">
+    <h5 class="card-header">Rəylər <small>({{ blog.comment_number }})</small></h5>
+    <form method="POST" class="m-3 uniForm">
+        {% csrf_token %}
+        {{ form.media }}
+        {{ form|crispy }}
+        <input type="hidden" name="answer" value="A">
+        <input class="btn btn-primary" type="submit" value="Rəy yaz">
+    </form>
+    {% for comment in comments %}
+    <div class="media border p-3">
+        <div class="media-body float-left my-3">
+            <h6 style="font-size:100%">{{ comment.writer }} <small><i>{{ comment.pub_date }}</i></small></h6>
+            <p>{{ comment.comment }}</p>
+            <button class="btn btn-outline-primary border-0 p-0" onclick="document.getElementById('cvpyz').style.display='block'" type="button">Cavab yaz</button>
+            <form id="cvpyz" method="POST" style="display:none">
+                {% csrf_token %}
+                {{ form.media }}
+                {{ form|crispy }}
+                <input type="hidden" name="answer" value="{{ comment.id }}">
+                <input class="btn btn-primary" type="submit" value="Cavab yaz">
+            </form>
+            {% for reply in comment.replies.all %}
+            <div class="media border-bottom p-3">
+                <div class="media-body float-left my-3">
+                  <h4 style="font-size:100%">{{ reply.writer }} <small><i>{{ reply.pub_date }}</i></small></h4>
+                  <p>{{ reply.comment }}</p>
+                </div>
+              </div>
+            {% endfor %}
+            </div>
+          </div>
+          {% empty %}
+          <div class="alert alert-info m-1">Bu bloq üçün rəy yazılmayıb</div>
+          {% endfor %}
+</div>
+
+{% endblock %}

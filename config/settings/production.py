@@ -2,7 +2,7 @@ from .base import *
 import environ
 
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1:8000', 'localhost', "*", '13.49.134.237']
 
@@ -47,5 +47,5 @@ STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 DEFAULT_FILE_STORAGE = 'config.storage_backend.MediaStorage'
 
 
-WHITENOISE_AUTOREFRESH = True
+
 

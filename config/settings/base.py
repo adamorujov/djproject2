@@ -19,7 +19,7 @@ env = environ.Env()
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+environ.Env().read_env(os.path.join(BASE_DIR, '.env'))
 
 
 # Quick-start development settings - unsuitable for production
@@ -31,7 +31,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = True
 
-ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'crispy_forms',
     'environ',
+    'storages',
 ]
 
 MIDDLEWARE = [

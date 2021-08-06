@@ -4,7 +4,7 @@ from blogs.models import BlogModel, CategoryModel, CommentModel
 
 @admin.register(BlogModel)
 class BlogModelAdmin(admin.ModelAdmin):
-    fields = ('title', 'categories', 'image', 'context', 'views_time', 'comment_number')
+    fields = ('title', 'categories', 'image', 'context', 'views_time')
     search_fields = ('title',)
 
 @admin.register(CategoryModel)

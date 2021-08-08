@@ -4,7 +4,7 @@ import environ
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1:8000', 'localhost', "*", '13.49.134.237']
+ALLOWED_HOSTS = ['13.49.134.237',]
 
 DATABASES = {
     'default': {

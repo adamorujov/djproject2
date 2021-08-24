@@ -15,7 +15,7 @@ class HomePageView(View):
         search = self.request.GET.get('search')
 
         if search: 
-            search = self.request.GET['search']
+            search = self.request.GET.get('search')
             blogs = blogs.filter(
                 Q(title__icontains=search) |
                 Q(context__icontains=search)
@@ -69,8 +69,8 @@ class BlogDetailView(View):
         if form.is_valid():
             comment = form.save(commit=False)
             comment.blog = blog
-            if request.POST['answer'] != 'A':
-                comment.parent = get_object_or_404(CommentModel, id=request.POST['answer'])
+            if request.POST.get('answer') != 'A':
+                comment.parent = get_object_or_404(CommentModel, id=request.POST.get('answer'))
             comment.save()
             blog.comment_number += 1
             blog.save()
